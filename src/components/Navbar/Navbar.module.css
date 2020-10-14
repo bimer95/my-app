@@ -1,12 +1,14 @@
 .nav {
     grid-area: n;
     background-color: burlywood;
+    padding: 20px;
   }
 
-  .item{
+  .item a{
       color: rgb(245, 245, 245);
+      text-decoration: none;/* избавление от подчеркивания */
   }
 
-  .item.active {
+  .item.active a {/* active a в profile Navbar.jsx */
       color: gold;
   }
