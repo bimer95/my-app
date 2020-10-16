@@ -2,13 +2,14 @@
     grid-area: n;
     background-color: burlywood;
     padding: 20px;
-  }
+}
 
-  .item a{
-      color: rgb(245, 245, 245);
-      text-decoration: none;/* избавление от подчеркивания */
-  }
+.item a {
+    color: rgb(245, 245, 245);
+    text-decoration: none; /* избавление от подчеркивания */
+}
 
-  .item.active a {/* active a в profile Navbar.jsx */
-      color: gold;
-  }
+.item a.activeLink {
+    /* active a в profile Navbar.jsx */
+    color: gold;
+}
