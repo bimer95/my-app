@@ -5,11 +5,10 @@
 }
 
 .item a {
-    color: rgb(245, 245, 245);
-    text-decoration: none; /* избавление от подчеркивания */
+    color: white;
+    text-decoration: none;
 }
 
 .item a.activeLink {
-    /* active a в profile Navbar.jsx */
     color: gold;
 }
