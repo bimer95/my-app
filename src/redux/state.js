@@ -12,7 +12,7 @@ let state = {
             {id: 1, name: 'Veniamin'},
             {id: 2, name: 'Volod'},
             {id: 3, name: 'Serge'},
-            {id: 4, name: 'Dmitry'},
+            {id: 4, name: 'Dmitryy'},
         ],
         messages: [
             {id: 1, message: 'Hi'},
@@ -22,5 +22,17 @@ let state = {
     },
     sidebar: {}
 }
+
+export let addPost = (postMessage) => {
+    let newPost = {
+        id: 5,
+        message: postMessage,
+        likesCount: 0
+    };
+    
+    state.profilePage.posts.push(newPost);
+}
+
+
 
 export default state;

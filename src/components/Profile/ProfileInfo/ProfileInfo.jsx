@@ -7,7 +7,7 @@ const ProfileInfo = () => {
         <div>
             <div>
                 <img
-                    src='https://24.rosguard.gov.ru/uploads/2020/04/rosgvardiya_small.jpg'/>
+                    src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Flag_of_National_Guard_Forces_Command.svg/1200px-Flag_of_National_Guard_Forces_Command.svg.png'/>
             </div>
             <div className={s.descriptionBlock}>
                 ava + description
