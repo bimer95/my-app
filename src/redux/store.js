@@ -1,4 +1,4 @@
-import dialogsReducer from "./dialogs-reducer.";
+import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
@@ -33,7 +33,7 @@ let store = {
 
 
     },
-    callSubscriber() {
+    _callSubscriber() {
         console.log('State changed');
     },
     getState() {
