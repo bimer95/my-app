@@ -7,22 +7,25 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import store from './redux/store';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 const App = (props) => {
     
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header />
                 <Navbar />
                 <div class='app-wrapper-content'>
-                    <Route path='/dialogs'
+                    <Route path='/dialogs' /* Route следит за url в браузере если
+                                               он совпадает то рендерит его */
                            render={ () => <DialogsContainer/> }/>
+
                     <Route path='/profile'
                            render={ () => <Profile /> }/>
+                    <Route path='/users'
+                           render={ () => <UsersContainer /> }/>
                 </div>
-            </div>
-        </BrowserRouter>)
+            </div>)
 }
 
 export default App;
