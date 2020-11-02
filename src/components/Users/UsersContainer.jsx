@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {followAC, setCurrentPageAC, setUsersTotalCount, setUsersAC, unfollowAC, toggleIsFetchingAC} from "../../redux/users-reducer";
+import {follow, setCurrentPage, setUsersTotalCount, setUsers, unfollow, toggleIsFetching} from "../../redux/users-reducer";
 import * as axios from 'axios';
-import Users from './Users';
-import preloader from '../../assets/images/preloader.svg'; 
+import Users from './Users'; 
 import Preloader from '../common/Preloader/Preloader';
 
 class UsersContainer extends React.Component {
@@ -44,9 +43,9 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state) => { //функция возвращающая объект
     return {
-        users: state.usersPage.users,
+        users: state.usersPage.users,//берем из state какие то части нужные нам
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
@@ -54,27 +53,37 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
+/* let mapDispatchToProps = (dispatch) => { //функция возвращающая объект
     return {
         follow: (userId) => {
-            dispatch(followAC(userId));
+            dispatch(follow(userId));
         },
         unfollow: (userId) => {
-            dispatch(unfollowAC(userId));
+            dispatch(unfollow(userId));
         },
         setUsers: (users) => {
-            dispatch(setUsersAC(users));
+            dispatch(setUsers(users));
         },
         setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC ())
+            dispatch(setCurrentPage ())
         },
         setUsersTotalCount: (totalCount) => {
             dispatch(setUsersTotalCount (totalCount))
         },
         toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingAC (isFetching));
-        }
+            dispatch(toggleIsFetching (isFetching));
+        } 
     }
-}
+    
+} */
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+
+
+export default connect(mapStateToProps, {
+    follow, // follow: (userId) => {dispatch(follow(userId));},
+unfollow, //unfollow: (userId) => {dispatch(unfollow(userId));
+setUsers,
+setCurrentPage,
+setUsersTotalCount,
+toggleIsFetching
+})(UsersContainer);
