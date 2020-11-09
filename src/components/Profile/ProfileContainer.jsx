@@ -2,35 +2,35 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
-import {setUsersProfile} from '../../redux/profile-reducer';
-import { withRouter } from 'react-router-dom';
+import { getUserProfile } from '../../redux/profile-reducer';
+import { Redirect, withRouter } from 'react-router-dom';
 
 class ProfileContainer extends React.Component {
-   
-componentDidMount() {
-    let userId= this.props.match.params.userId;
-    if (!userId) {
-        userId = 2;
+
+    componentDidMount() {
+        let userId = this.props.match.params.userId;
+        if (!userId) {
+            userId = 2;
+        }
+        this.props.getUserProfile(userId);//санк
     }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUsersProfile(response.data); //массив наших пользователей
-            });
-}
 
-    render () {
+    render() {
 
-    return (
-            <Profile {...this.props} profile={this.props.profile}/>
-    
-    )
-}
+        if (!this.props.isAuth) return <Redirect to = {'/login'}/>// блокируем переход в messagec без логина 
+        return (
+            <Profile {...this.props} profile={this.props.profile} />
+        )
+    }
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
-});
+        profile: state.profilePage.profile,
+        isAuth:state.auth.isAuth //узнаем залогин или не залогин
 
-let WithUrlDataContainerComponent = withRouter (ProfileContainer);//возвращает новую компонету и закидывает данные из URL
+    });
 
-export default connect (mapStateToProps, {setUsersProfile}) (WithUrlDataContainerComponent);
+
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
+export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);//возвращает новую компонету и закидывает данные из URL
