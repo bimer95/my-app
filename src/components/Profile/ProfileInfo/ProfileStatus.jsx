@@ -2,7 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 
 
-class ProfileStaus extends React.Component {
+class ProfileStatus extends React.Component {
 
     state = {
         editMode: false
@@ -43,4 +43,4 @@ deactivateEditMode () {
     }
 }
 
-export default ProfileStaus;
+export default ProfileStatus;
