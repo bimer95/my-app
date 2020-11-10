@@ -34,7 +34,18 @@ onStatusChange = (e) => {
     }); 
 
 }
+
+componentDidUpdate (prevProps, prevState) {
+    if (prevProps.status !== this.props.status){
+    this.setState({
+        status: this.props.status
+
+    });
+}
+    console.log('componentDidUpdate')
+}
     render() {
+        console.log('render')
 
         return (
             <div>
