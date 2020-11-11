@@ -1,4 +1,3 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let initialState = {
@@ -12,8 +11,8 @@ let initialState = {
         { id: 1, message: 'Hi' },
         { id: 2, message: 'How is your?' },
         { id: 3, message: 'Ok' },
-    ],
-    newMessageBody: ""
+    ]
+    
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -21,17 +20,11 @@ const dialogsReducer = (state = initialState, action) => {
     
     let stateCopy;
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: //изменение текста
-        return {
-            ...state,
-            newMessageBody: action.body
-        }; 
         case SEND_MESSAGE: //добавление поста с текстом
-        let body = state.newMessageBody;
+        let body = action.newMessageBody;
 
            return {
                 ...state,
-            newMessageBody: '',
             messages: [...state.messages, {id: 6, message: body}]
         };
         
@@ -40,8 +33,7 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
-export const updateNewMessageBodyCreator = (body) =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, body: body })
+export const sendMessageCreator = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody })
+
 
 export default dialogsReducer;
