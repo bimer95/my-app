@@ -58,4 +58,4 @@ export default compose(
     follow, // follow: (userId) => {dispatch(follow(userId));},
     unfollow, //unfollow: (userId) => {dispatch(unfollow(userId));
     setCurrentPage,
-    toggleFollowingProgress, getUsers}) (UsersContainer))
+    toggleFollowingProgress, getUsers})) (UsersContainer)
