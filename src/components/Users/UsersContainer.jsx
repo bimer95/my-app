@@ -53,7 +53,6 @@ let mapStateToProps = (state) => { //функция возвращающая о�
 
 
 export default compose( 
-    withAuthRedirect,
     connect(mapStateToProps, {
     follow, // follow: (userId) => {dispatch(follow(userId));},
     unfollow, //unfollow: (userId) => {dispatch(unfollow(userId));
