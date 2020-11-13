@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as axios from 'axios';
 import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
 import { Redirect, withRouter } from 'react-router-dom';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
@@ -20,13 +20,9 @@ class ProfileContainer extends React.Component {
         this.props.getUserProfile(userId);//санк
         this.props.getStatus(userId);
 
-
-
     }
 
     render() {
-
-
         return (
             <Profile {...this.props} profile={this.props.profile}
                 status={this.props.status} updateStatus={this.props.updateStatus} />
