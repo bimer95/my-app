@@ -1,24 +1,35 @@
 import React from 'react';
+import { Field } from 'redux-form';
 import styles from './FormsControls.module.css';
 
 const FormControl = ({ input, meta, child, ...props }) => {
     const hasError = meta.touched && meta.error;
     return (//с одинарными скобками не будет работать 
-        <div className={styles.formControl + " " + (hasError ? styles.error : " ")}> 
+        <div className={styles.formControl + " " + (hasError ? styles.error : " ")}>
             <div>
                 {props.children}
             </div>
-    { hasError && <span>{meta.error}</span>}
+            { hasError && <span>{meta.error}</span>}
         </div>
     )
 }
 
 export const Textarea = (props) => {
-    const {input, meta, child, ...restProps}=props;
-    return <FormControl {...props}> <textarea {...input} {...props}/> </FormControl>
+    const { input, meta, child, ...restProps } = props;
+    return <FormControl {...props}> <textarea {...input} {...props} /> </FormControl>
 }
 
 export const Input = (props) => {
-    const {input, meta, child, ...restProps}=props;
-    return <FormControl {...props}> <input {...input} {...props}/> </FormControl>
+    const { input, meta, child, ...restProps } = props;
+    return <FormControl {...props}> <input {...input} {...props} /> </FormControl>
 }
+
+export const createField = (placeholder, name, validators, component, props = {}, text = "") => (
+    <div>
+        <Field placeholder={placeholder} name={name}
+            validate={validators}
+            component={component}
+            {...props}
+        /> {text}
+    </div>
+)
