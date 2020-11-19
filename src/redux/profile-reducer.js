@@ -3,6 +3,7 @@ import { profileAPI, usersAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const SEVE_PHOTO_SUCCESS = 'SEVE_PHOTO_SUCCESS';
 
 let initialState = {
     posts: [
@@ -41,6 +42,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_USER_PROFILE: {
             return { ...state, profile: action.profile }
         }
+        case SEVE_PHOTO_SUCCESS: {
+            return { ...state, profile: {...state.profile, photos:action.photos} }
+        }
         default:
             return state;
     }
@@ -49,6 +53,8 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+export const savePhotoSuccess = (photos) => ({ type: SEVE_PHOTO_SUCCESS, photos })
+
 
 export const getUserProfile = (userId) => async (dispatch) => { //санки
     let response = await usersAPI.getProfile(userId);
@@ -66,6 +72,14 @@ export const updateStatus = (status) => async (dispatch) => { //санки
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status)); //массив наших пользователей
     }
+}
+
+export const savePhoto = (file) => async (dispatch) => { //санки
+        let response = await profileAPI.savePhoto(file);
+
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos)); //массив наших пользователей
+        }
 }
 
 export default profileReducer;
