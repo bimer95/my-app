@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import { Route, withRouter } from "react-router-dom";
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
 import { connect } from "react-redux";
@@ -12,6 +11,14 @@ import { getAuthUserData } from "./redux/auth-reducer";
 import { compose } from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import { withSuspens } from './components/hoc/withSuspens';
+
+
+//import DialogsContainer from './components/Dialogs/DialogsContainer';
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));//ленивая загрузка
+//import ProfileContainer from './components/Profile/ProfileContainer';
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));//ленивая загрузка
+
 
 
 class App extends Component {
@@ -30,10 +37,10 @@ class App extends Component {
                             <div className='app-wrapper-content'>
                                    <Route path='/dialogs' /* Route следит за url в браузере если
                                                он совпадает то рендерит его */
-                                          render={() => <DialogsContainer />} />
+                                          render={withSuspens(DialogsContainer)} />
 
                                    <Route path='/profile/:userId?'
-                                          render={() => <ProfileContainer />} />
+                                          render={withSuspens  (ProfileContainer)} />
                                    <Route path='/users'
                                           render={() => <UsersContainer />} />
                                    <Route path='/login'
