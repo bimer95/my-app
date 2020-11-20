@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
@@ -20,7 +21,7 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: { //добавление поста с текстом
             let newPost = {
-                id: 5,
+                id: 12384,
                 message: action.newPostText,
                 likesCount: 0
             };
@@ -81,5 +82,19 @@ export const savePhoto = (file) => async (dispatch) => { //санки
             dispatch(savePhotoSuccess(response.data.data.photos)); //массив наших пользователей
         }
 }
+
+export const saveProfile = (profile) => async (dispatch, getState) => { //санки
+    const userId = getState() .auth.userId;
+    const response = await profileAPI.saveProfile(profile);
+
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfile (userId)); //массив наших пользователей
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages [0]}));//("edit-profile", {'contacts': {facebook': response.data.messages [0]}}));(для каждого эллемента)
+        return Promise.reject(response.data.messages[0]);
+    }
+
+}
+
 
 export default profileReducer;
