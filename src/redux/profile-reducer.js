@@ -69,12 +69,15 @@ export const getStatus = (userId) => async (dispatch) => { //санки
 }
 
 export const updateStatus = (status) => async (dispatch) => { //санки
+    try {
     let response = await profileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status)); //массив наших пользователей
     }
+} catch (error){
+    //можно доделать ошибку
 }
-
+}
 export const savePhoto = (file) => async (dispatch) => { //санки
         let response = await profileAPI.savePhoto(file);
 
