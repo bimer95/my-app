@@ -1,14 +1,54 @@
 .descriptionBlock {
     padding: 10px;
+    
+    
 }
 
 .mainPhoto {
 
     max-width: 200px;
     border-radius: 100px;
+    
 }
 
 .contact {
-
     padding-left: 20px;
 }
+
+.info{
+    border: 1px  solid   rgb(182, 105, 107); 
+    outline: 1px solid  rgb(130, 31, 34);
+    border-width: 4px;
+ /*    margin-top:4px;
+    width: 22em;
+    padding-left: 600px;
+    outline:6px;
+    position: relative;
+    top: 20px;
+    left: -40px */;
+    position: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25em;
+    margin-top: -210px;
+    background-color: rgba(254, 254, 254, 0.623);
+    
+    
+
+   
+    
+}
+
+.button2{
+        background: -moz-linear-gradient( rgb(130, 31, 34), #ebffff);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#dd0303), to(#EBFFFF));
+    font-size: 18px;
+    border-radius: 50%;
+    width: 70px;
+
+}
+
+
+
+
+
