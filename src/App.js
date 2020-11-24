@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { Redirect, Route, withRouter } from "react-router-dom";
+import { Redirect, Route, withRouter, Switch } from "react-router-dom";
 import UsersContainer from './components/Users/UsersContainer';
 
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -47,7 +47,8 @@ class App extends Component {
                             <HeaderContainer />
                             <Navbar />
                             <div className='app-wrapper-content'>
-                                   <Route path='/'
+                            <Switch>
+                                   <Route exact path='/'
                                           render={() => <Redirect to={"/profile"} />} />
                                    <Route path='/dialogs' /* Route следит за url в браузере если
                                                он совпадает то рендерит его */
@@ -60,7 +61,8 @@ class App extends Component {
                                    <Route path='/login'
                                           render={() => <LoginPage />} />
                                    <Route path='*'
-                                          render={() => <div>404 NOT FOUND</div>} />
+                               render={() => <div>404 NOT FOUND</div>}/>
+                               </Switch>
                             </div>
                      </div>
               )
