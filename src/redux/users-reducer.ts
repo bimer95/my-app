@@ -1,6 +1,3 @@
-import { type } from 'os';
-import { type } from 'os';
-import { type } from 'os';
 import { PhotosType, UserType } from './../types/types';
 import { usersAPI } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";

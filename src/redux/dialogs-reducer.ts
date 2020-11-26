@@ -1,8 +1,3 @@
-import { type } from 'os';
-import { type } from 'os';
-import { type } from 'os';
-import { type } from 'os';
-import { type } from 'os';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 type DialogType = {

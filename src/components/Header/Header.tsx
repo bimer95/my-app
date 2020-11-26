@@ -1,20 +1,20 @@
 import { Button, Col, Menu, Row } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
-import Layout, { Header } from 'antd/lib/layout/layout';
+import Layout from 'antd/lib/layout/layout';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import s from './Header.module.css';
 import { UserOutlined } from '@ant-design/icons';
 import { selectCurrentUserLogin, selectIsAuth } from '../../redux/auth-selectors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/auth-reducer';
 
-export const MapStateToProps = (state) => {
-
+/* export type MapPropsType = {
+    isAuth: boolean
+    login: string | null
 }
 
-
-export const Header: React.FC <MapStateToProps> = (props) => {
+export const AppHeader: React.FC <MapPropsType> = (props) => {
     
     const isAuth = useSelector(selectIsAuth)
     const login = useSelector(selectCurrentUserLogin)
@@ -26,8 +26,7 @@ export const Header: React.FC <MapStateToProps> = (props) => {
 
     }
     
-    const {Header} = Layout
-    
+    const {Header } = Layout;
     
     return  <Header className="header">
     <div className="logo" />
@@ -43,7 +42,7 @@ export const Header: React.FC <MapStateToProps> = (props) => {
                 : <Link to={'/login'}>Login</Link> }</Col>
     </Row>
     
-  </Header>
+  </Header> */
     
     
   /*   <header className={s.header}>
@@ -55,5 +54,5 @@ export const Header: React.FC <MapStateToProps> = (props) => {
                 : <NavLink to={'/login'}>Login</NavLink> }
     </div>
     </header> */
-}
+
 

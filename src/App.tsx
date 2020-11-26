@@ -6,7 +6,6 @@ import { Redirect, Route, withRouter, Switch, NavLink, Link } from "react-router
 import UsersContainer from './components/Users/UsersContainer';
 import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
 import { connect } from "react-redux";
 import { getAuthUserData } from "./redux/auth-reducer";
@@ -16,6 +15,9 @@ import Preloader from "./components/common/Preloader/Preloader";
 import { withSuspens } from './components/hoc/withSuspens';
 import { Button } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
+import store, {AppStateType} from "./redux/redux-store";
+import { Alert } from 'antd';
+
 
 
 
@@ -26,12 +28,17 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));//ленивая загрузка
 
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const {Content, Footer, Sider } = Layout;
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
 
 
-class App extends Component {
+class App extends Component<MapPropsType & DispatchPropsType> {
 
-       catchAllUnhandledErrors = (reason, promise) => { //обработчик ошибок
+       catchAllUnhandledErrors = (e: PromiseRejectionEvent) => { //обработчик ошибок
               alert("Some error occured")
 
        }
@@ -66,7 +73,7 @@ class App extends Component {
                                    <Route path='/profile/:userId?'
                                           render={withSuspens(ProfileContainer)} />
                                    <Route path='/users'
-                                          render={() => <UsersContainer />} />
+                                          render={() => <UsersContainer pageTitle={"Самураи"} />} />
                                    <Route path='/login'
                                           render={() => <LoginPage />} />
                                    <Route path='*'
@@ -76,7 +83,7 @@ class App extends Component {
                             </div>
                      </div>   */
                      <Layout>
-   
+                            {/* <Header /> */}
     <Content style={{ padding: '0 50px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -121,13 +128,12 @@ class App extends Component {
 
                                    <Route path='/profile/:userId?'
                                           render={withSuspens(ProfileContainer)} />
-                                   <Route path='/developers'
-                                          render={() => <UsersContainer />} />
+                                   {/* <Route path='/developers'
+                                          render={() => <UsersContainer />} /> */}
                                    <Route path='/login'
                                           render={() => <LoginPage />} />
                                    <Route path='*'
-                               render={() => <div>404 NOT FOUND
-                               </div>}/>
+                               render={() =>  <Alert message="Error" type="error" showIcon />}/>
                                </Switch>
         </Content>
       </Layout>
@@ -138,9 +144,11 @@ class App extends Component {
                                }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
        initialized: state.app.initialized
 })
+
+
 
 export default compose(
        withRouter,

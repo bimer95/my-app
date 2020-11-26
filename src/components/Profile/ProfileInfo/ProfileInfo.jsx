@@ -4,7 +4,10 @@ import s from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import userPhoto from '../../../assets/images/userman.png';
 import ProfileDataForm from './ProfileDataForm';
+import { Typography, Space } from 'antd';
 
+
+const { Text, Link } = Typography;
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
@@ -52,22 +55,22 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return <div className={s.info}>
         {isOwner && <div><button className={s.button2} onClick={goToEditMode}>Edit</button></div>}
         <div>
-            <b>Full name</b>: {profile.fullName}
+            <Text strong>Full name </Text>: {profile.fullName}
         </div>
         <div>
-            <b>Looking for a job</b>: {profile.lookingForAJob ? "yes" : "no"}
+            <Text strong>Looking for a job</Text>: {profile.lookingForAJob ? "yes" : "no"}
         </div>
         {profile.lookingForAJob &&
         <div>
-            <b>My professional skills</b>: {profile.lookingForAJobDescription}
+            <Text strong>My professional skills</Text>: {profile.lookingForAJobDescription}
         </div>
         }
 
         <div>
-            <b>About me</b>: {profile.aboutMe}
+            <Text strong>About me</Text>: {profile.aboutMe}
         </div>
         <div>
-            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            <Text strong>Contacts</Text>: {Object.keys(profile.contacts).map(key => {
             return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
         })}
         </div>

@@ -1,6 +1,4 @@
 import { PostType, ProfileType, PhotosType } from './../types/types';
-import { setUserProfile } from './profile-reducer';
-import { InitialStateType } from './app-reducer';
 import { stopSubmit } from "redux-form";
 import { profileAPI, usersAPI } from "../api/api";
 

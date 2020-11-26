@@ -4,7 +4,11 @@ import Post from './Post/Post';
 import { Field, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
 import { Textarea } from '../../common/FormsControls/FormsControls';
+import { Typography, Space } from 'antd';
+import { Button, Radio } from 'antd';
 
+
+const { Text, Link } = Typography;
 const maxLength10 = maxLengthCreator (10);
 
 const MyPosts = React.memo (props => {
@@ -20,7 +24,7 @@ const MyPosts = React.memo (props => {
     }
     return (
         <div className={s.postsBlock}>
-            <h3>My posts</h3>
+            <Text>My posts</Text>
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {postsElements}
@@ -36,7 +40,7 @@ const AddNewPostForm = (props) => {
     <Field component = {Textarea} name = 'newPostText' placeholder = {'Enter your message'} 
     validate={[required, maxLength10]}/>
                 <div>
-                    <button className={s.button1}>Add post</button>
+                    <Button className={s.button1}>Add post</Button>
                 </div>
            
     </form>
