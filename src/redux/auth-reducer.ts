@@ -1,5 +1,7 @@
+import { ThunkAction } from 'redux-thunk';
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import { Dispatch } from 'react';
 
 const SET_USER_DATA = 'rosg-network/auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'rosg-network/auth/GET_CAPTCHA_URL_SUCCESS';
@@ -12,6 +14,7 @@ let initialState = {
     login: null as string|null,
     isAuth: false as boolean,
     captchaUrl:null as string|null // if null, then captcha is not required
+    
 };
 
 export type InitialStateType = typeof initialState;
@@ -36,6 +39,7 @@ type SetAuthUserDataActionPayloadType = {
     email:string|null
     login:string|null
     isAuth:boolean
+    
 
 }
 
@@ -54,13 +58,14 @@ type GetCaptchaUrlSuccessActionType = {
     payload: {captchaUrl: string}
 
 }
+type ActionsTypes = SetAuthUserDataActionPayloadType | SetAuthUserDataActionType | GetCaptchaUrlSuccessActionType | InitialStateType
 
 export const getCaptchaUrlSuccess = (captchaUrl: string):GetCaptchaUrlSuccessActionType => ({
     type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}
 });
 
 
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = () => async (dispatch: Dispatch<ActionsTypes>)=> {
     let response = await authAPI.me ();
 
             if (response.data.resultCode === 0) {
@@ -83,7 +88,7 @@ export const login = (email: string, password:string, rememberMe:boolean, captch
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch:any) => {
+export const getCaptchaUrl = () => async (dispatch:Dispatch<ActionsTypes>) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl));
@@ -91,7 +96,7 @@ export const getCaptchaUrl = () => async (dispatch:any) => {
 
 
 
-export const logout = () => async (dispatch:any) => {
+export const logout = () => async (dispatch:Dispatch<ActionsTypes>) => {
     let response = await authAPI.logout();
 
     if (response.data.resultCode === 0) {

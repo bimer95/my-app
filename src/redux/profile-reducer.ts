@@ -60,6 +60,8 @@ type AddPostActionCreatorActionType = {
     type: typeof ADD_POST
     newPostText: string
 }
+
+
 export const addPostActionCreator = (newPostText: string):AddPostActionCreatorActionType => ({ type: ADD_POST, newPostText })
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
