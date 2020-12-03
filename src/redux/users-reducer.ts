@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { AppStateType, InferActionsTypes } from './redux-store';
 import { PhotosType, UserType } from './../types/types';
 import { usersAPI } from "../api/api";
@@ -20,6 +21,7 @@ let initialState = {
 
 type InitialState = typeof initialState;
 
+
 const userReducer = (state = initialState, action: ActionsTypes):InitialState => { /* Reducer функция с помощью которой идет модификация state */
 
 
@@ -30,6 +32,7 @@ const userReducer = (state = initialState, action: ActionsTypes):InitialState =>
                 users: updateObjectInArray (state.users, action.userId, "id", {followed: true})
 
             }
+
         case 'UNFOLLOW':
             return {
                 ...state,
@@ -62,15 +65,17 @@ const userReducer = (state = initialState, action: ActionsTypes):InitialState =>
 }
 
 type ActionsTypes = InferActionsTypes <typeof actions>
-
+function inferLiteralFromStrng <T extends string>(arg:T): T{
+    return arg
+}
 export const actions = {
-    followSuccess: (userId:number) => (<const>{ type: 'FOLLOW', userId} ),
-    unfollowSuccess: (userId:number) => ({ type: 'UNFOLLOW', userId } ),
-    setUsers: (users:Array<UserType>) => ({ type: 'SET_USERS', users } ),
-    setCurrentPage: (currentPage:number) => ({ type: 'SET_CURRENT_PAGE', currentPage }),
-    setUsersTotalCount: (totalUsersCount:number) => ({ type:'SET_TOTAL_USERS_COUNT', count: totalUsersCount } ),
-    toggleIsFetching: (isFetching:boolean) => ({ type: 'TOGGLE_IS_FETCHING', isFetching }),
-    toggleFollowingProgress: (isFetching:boolean, userId:number) => ({ type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId })
+    followSuccess: (userId:number) => ({ type: inferLiteralFromStrng ('FOLLOW'), userId} as const),
+    unfollowSuccess: (userId:number) => ({ type: inferLiteralFromStrng ('UNFOLLOW'), userId } as const),
+    setUsers: (users:Array<UserType>) => ({ type: 'SET_USERS', users } as const),
+    setCurrentPage: (currentPage:number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const),
+    setUsersTotalCount: (totalUsersCount:number) => ({ type:'SET_TOTAL_USERS_COUNT', count: totalUsersCount } as const),
+    toggleIsFetching: (isFetching:boolean) => ({ type: 'TOGGLE_IS_FETCHING', isFetching } as const),
+    toggleFollowingProgress: (isFetching:boolean, userId:number) => ({ type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const)
     
 }
 type GetStateType = () => AppStateType
