@@ -12,7 +12,7 @@ type FormControlPropsType = {
 const FormControl: React.FC<FormControlPropsType> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error;
     return (
-        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>//с одинарными скобками не будет работать 
+        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>{/* с одинарными скобками не будет работать  */}
             <div>
                 {children}
             </div>
