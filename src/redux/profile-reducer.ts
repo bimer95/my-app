@@ -1,6 +1,7 @@
+import { profileAPI } from './../api/profile-api';
 import { PostType, ProfileType, PhotosType } from './../types/types';
 import { stopSubmit } from "redux-form";
-import { profileAPI, usersAPI } from "../api/api";
+
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -80,20 +81,20 @@ type SavePhotoSuccessActionType = {
 export const savePhotoSuccess = (photos:PhotosType):SavePhotoSuccessActionType => ({ type: SEVE_PHOTO_SUCCESS, photos })
 
 export const getUserProfile = (userId:number) => async (dispatch:any) => { //санки
-    let response = await usersAPI.getProfile(userId);
-    dispatch(setUserProfile(response.data)); //массив наших пользователей
+    let data = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(data)); //массив наших пользователей
 }
 
 export const getStatus = (userId:number) => async (dispatch:any) => { //санки
-    let response = await profileAPI.getStatus(userId);
+    let data = await profileAPI.getStatus(userId);
     debugger;
-    dispatch(setStatus(response.data)); //массив наших пользователей
+    dispatch(setStatus(data)); //массив наших пользователей
 }
 
 export const updateStatus = (status:string) => async (dispatch:any) => { //санки
     try {
-    let response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
+    let data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
         dispatch(setStatus(status)); //массив наших пользователей
     }
 } catch (error){
@@ -101,22 +102,22 @@ export const updateStatus = (status:string) => async (dispatch:any) => { //са�
 }
 }
 export const savePhoto = (file:any) => async (dispatch:any) => { //санки
-        let response = await profileAPI.savePhoto(file);
+        let data = await profileAPI.savePhoto(file);
 
-        if (response.data.resultCode === 0) {
-            dispatch(savePhotoSuccess(response.data.data.photos)); //массив наших пользователей
+        if (data.resultCode === 0) {
+            dispatch(savePhotoSuccess(data.data.photos)); //массив наших пользователей
         }
 }
 
 export const saveProfile = (profile:ProfileType) => async (dispatch:any, getState:any) => { //санки
     const userId = getState() .auth.userId;
-    const response = await profileAPI.saveProfile(profile);
+    const data = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
         dispatch(getUserProfile (userId)); //массив наших пользователей
     } else {
-        dispatch(stopSubmit("edit-profile", {_error: response.data.messages [0]}));//("edit-profile", {'contacts': {facebook': response.data.messages [0]}}));(для каждого эллемента)
-        return Promise.reject(response.data.messages[0]);
+        dispatch(stopSubmit("edit-profile", {_error: data.messages [0]}));//("edit-profile", {'contacts': {facebook': response.data.messages [0]}}));(для каждого эллемента)
+        return Promise.reject(data.messages[0]);
     }
 
 }

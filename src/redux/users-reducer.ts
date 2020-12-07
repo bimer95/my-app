@@ -1,7 +1,7 @@
 import { type } from 'os';
-import { AppStateType, InferActionsTypes } from './redux-store';
+import { AppStateType, InferActionsTypes, BaseThunkType } from './redux-store';
 import { PhotosType, UserType } from './../types/types';
-import { usersAPI } from "../api/api";
+import {usersAPI} from '../api/users-api';
 import { updateObjectInArray } from "../utils/object-helpers";
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from 'redux';
@@ -65,12 +65,10 @@ const userReducer = (state = initialState, action: ActionsTypes):InitialState =>
 }
 
 type ActionsTypes = InferActionsTypes <typeof actions>
-function inferLiteralFromStrng <T extends string>(arg:T): T{
-    return arg
-}
+
 export const actions = {
-    followSuccess: (userId:number) => ({ type: inferLiteralFromStrng ('FOLLOW'), userId} as const),
-    unfollowSuccess: (userId:number) => ({ type: inferLiteralFromStrng ('UNFOLLOW'), userId } as const),
+    followSuccess: (userId:number) => ({ type: 'FOLLOW', userId} as const),
+    unfollowSuccess: (userId:number) => ({ type: 'UNFOLLOW', userId } as const),
     setUsers: (users:Array<UserType>) => ({ type: 'SET_USERS', users } as const),
     setCurrentPage: (currentPage:number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const),
     setUsersTotalCount: (totalUsersCount:number) => ({ type:'SET_TOTAL_USERS_COUNT', count: totalUsersCount } as const),
@@ -80,7 +78,7 @@ export const actions = {
 }
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
-type ThunkType =  ThunkAction <Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const requestUsers = (page:number, 
     pageSize:number): ThunkType => { //санки
