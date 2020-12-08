@@ -12,7 +12,8 @@ type LoginFormOwnProps = {
     captchaUrl: string | null
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps>& LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps>& LoginFormOwnProps> 
+    = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input)}
@@ -54,7 +55,6 @@ export type LoginFormValuesType = {
     rememberMe: boolean
     captcha: string
 }
-
 type LoginFormValuesTypeKeys = Extract< keyof LoginFormValuesType, string>
 
 

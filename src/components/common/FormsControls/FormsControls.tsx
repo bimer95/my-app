@@ -8,11 +8,10 @@ type FormControlPropsType = {
     meta: WrappedFieldMetaProps
 }
 
-
 const FormControl: React.FC<FormControlPropsType> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error;
     return (
-        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>{/* с одинарными скобками не будет работать  */}
+        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
             <div>
                 {children}
             </div>
@@ -20,8 +19,6 @@ const FormControl: React.FC<FormControlPropsType> = ({meta: {touched, error}, ch
         </div>
     )
 }
-
-
 
 export const Textarea: React.FC<WrappedFieldProps> = (props) => {
     //const {input, meta, child, ...restProps} = props;
@@ -34,7 +31,6 @@ export const Input: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
-
 
 export function createField<FormKeysType extends string>(placeholder: string | undefined,
                             name: FormKeysType,
@@ -49,4 +45,5 @@ export function createField<FormKeysType extends string>(placeholder: string | u
         /> {text}
     </div>
 }
-                            
+
+export type GetStringKeys<T> = Extract<keyof T, string>       
